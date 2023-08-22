@@ -1,0 +1,11 @@
+COMB(QTY_ESC,       KC_ESC,         KC_W,    KC_E,    KC_R) //WER Escape
+
+COMB(QTY_TAB,       KC_TAB,         KC_S,    KC_D,    KC_F) //SDF Tab
+COMB(QTYrTAB,       KC_TAB,         KC_J,    KC_K,    KC_L) //JKL Tab
+
+COMB(QTY_ENT,       KC_ENT,         KC_X,    KC_C,    KC_V)   //XCV Enter
+COMB(QTYrENT,       KC_ENT,         KC_M,    KC_COMM, KC_DOT) //M,. Enter
+
+COMB(QTY_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T) //RSET Reset (boot mode)
+
+

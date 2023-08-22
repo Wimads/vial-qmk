@@ -1,0 +1,42 @@
+COMB(NUM_AT,        KC_AT,          DEL_NUM, KC_Q)
+COMB(NUM_DLR,       KC_DLR,         DEL_NUM, KC_W)
+COMB(NUM_AMPR,      KC_AMPR,        DEL_NUM, KC_E)
+COMB(NUM_PIPE,      KC_PIPE,        DEL_NUM, KC_R)
+COMB(NUM_TILD,      DH_TILD,        DEL_NUM, KC_T)
+COMB(NUM_LCBR,      KC_LCBR,        DEL_NUM, KC_A)
+COMB(NUM_LPRN,      KC_LPRN,        DEL_NUM, KC_S)
+COMB(NUM_RPRN,      KC_RPRN,        DEL_NUM, KC_D)
+COMB(NUM_RCBR,      KC_RCBR,        DEL_NUM, KC_F)
+COMB(NUM_GRV,       DH_GRV,         DEL_NUM, KC_G)
+COMB(NUM_LBRC,      KC_LBRC,        DEL_NUM, KC_Z)
+COMB(NUM_LT,        KC_LT,          DEL_NUM, KC_X)
+COMB(NUM_GT,        KC_GT,          DEL_NUM, KC_C)
+COMB(NUM_RBRC,      KC_RBRC,        DEL_NUM, KC_V)
+COMB(NUM_HASH,      KC_HASH,        DEL_NUM, KC_B)
+
+COMB(NUM_CIRC,      DH_CIRC,        DEL_NUM, KC_Y)
+COMB(NUM_7,         KC_7,           DEL_NUM, KC_U)
+COMB(NUM_8,         KC_8,           DEL_NUM, KC_I)
+COMB(NUM_9,         KC_9,           DEL_NUM, KC_O)
+COMB(NUM_PERC,      KC_PERC,        DEL_NUM, KC_P)
+COMB(NUM_PLUS,      KC_PLUS,        DEL_NUM, KC_H)
+COMB(NUM_4,         KC_4,           DEL_NUM, KC_J)
+COMB(NUM_5,         KC_5,           DEL_NUM, KC_K)
+COMB(NUM_6,         KC_6,           DEL_NUM, KC_L)
+COMB(NUM_ASTR,      KC_MINS,        DEL_NUM, DH_QUOT)
+COMB(NUM_MINS,      KC_ASTR,        DEL_NUM, KC_N)
+COMB(NUM_1,         KC_1,           DEL_NUM, KC_M)
+COMB(NUM_2,         KC_2,           DEL_NUM, KC_COMM)
+COMB(NUM_3,         KC_3,           DEL_NUM, KC_DOT)
+COMB(NUM_SLSH,      KC_SLSH,        DEL_NUM, KC_EXLM)
+
+COMB(NUM_UNDS,      KC_UNDS,        DEL_NUM, QM_MOD)
+COMB(NUM_DTCM,      DOTCOMM,        DEL_NUM, QMrMOD)
+COMB(NUM_0,         KC_0,           DEL_NUM, BSP_NAV)
+
+//on num layer:
+COMB(NUM_ENT,       KC_PENT,        KC_HASH, KC_RBRC) //*1 Numpad enter
+COMB(NUMrENT,       KC_PENT,        KC_ASTR, KC_1)    //*1 Numpad enter
+COMB(NUM_EQL,       KC_EQL,         KC_PLUS, KC_4)    //+4 =
+COMB(NUM_CKB,       CLEARKB,        KC_LCBR, KC_RPRN, KC_RCBR, DH_GRV) //{)}` Clear keyboard
+COMB(NUMrCKB,       CLEARKB,        KC_PLUS, KC_4, KC_5, KC_ASTR)      //+45* Clear keyboard

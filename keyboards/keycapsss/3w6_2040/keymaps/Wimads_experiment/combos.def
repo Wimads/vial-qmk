@@ -1,0 +1,20 @@
+#include "combos_QTY.def" //default layer combos
+#include "combos_SFT.def" //shift-combos
+#include "combos_QMM.def" //quantum modifier combos
+#include "combos_NUM.def" //_NUM layer combos
+#include "combos_NAV.def" //_NAV layer combos
+
+//common combos on all layers: //try if reference layer can work if used after #includes
+COMB(QTY_CKB,       CLEARKB,        KC_Q,    KC_T)    //QT Clear keyboard
+COMB(QTYrCKB,       CLEARKB,        KC_Y,    KC_P)    //YP Clear keyboard
+
+COMB(QMM_CKB,       CLEARKB,        QM_OTH,  XXXXXXX)
+
+COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
+COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
+
+COMB(NAV_CKB,       CLEARKB,        KC_VOLU, KC_PGUP)
+COMB(NAVrCKB,       CLEARKB,        KC_BRIU, KC_PGUP)
+
+COMB(OTH_CKB,       CLEARKB,        XXXXXXX, XXXXXXX)
+COMB(OTHrCKB,       CLEARKB,        KC_PSCR, XXXXXXX)
