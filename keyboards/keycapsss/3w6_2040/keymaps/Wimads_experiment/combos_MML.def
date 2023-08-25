@@ -1,0 +1,16 @@
+COMB(MML_SC,        S(KC_LCTL),         KC_LSFT, KC_LCTL)
+COMB(MML_SA,        S(KC_LALT),         KC_LSFT, KC_LALT)
+COMB(MML_SG,        S(KC_LGUI),         KC_LSFT, KC_LGUI)
+
+COMB(MML_CA,        C(KC_LALT),         KC_LCTL, KC_LALT)
+COMB(MML_CG,        C(KC_LGUI),         KC_LCTL, KC_LGUI)
+
+COMB(MML_AG,        A(KC_LGUI),         KC_LALT, KC_LGUI)
+
+COMB(MML_MEH,       KC_MEH,             KC_LSFT, KC_LCTL, KC_LALT)
+COMB(MML_HYP,       KC_HYPR,            KC_RSFT, KC_RCTL, KC_RALT)
+
+COMB(MML_SS,        S(KC_RSFT),         KC_LSFT, KC_RSFT)
+COMB(MML_CC,        C(KC_RCTL),         KC_LCTL, KC_RCTL)
+COMB(MML_AA,        A(KC_RALT),         KC_LALT, KC_RALT)
+

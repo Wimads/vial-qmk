@@ -1,0 +1,49 @@
+//on num layer:
+COMB(NUM_ENT,       KC_PENT,        KC_LT,   KC_GT,   KC_RBRC) //<>] Numpad enter
+COMB(NUMrENT,       KC_PENT,        KC_1,    KC_2,    KC_3)    //123 Numpad enter
+
+COMB(NUM_UNDS,      KC_UNDS,        KC_LT,   KC_RBRC)          //>]  underscore
+COMB(NUMqUNDS,      KC_UNDS,        KC_C,    KC_V,    KC_LSFT)
+COMB(NUMrUNDS,      KC_UNDS,        KC_1,    KC_3)
+
+COMB(NUM_EQL,       KC_EQL,         KC_LT,   KC_GT)            //<>  Equal (for programming =>)
+COMB(NUMqEQL,       KC_EQL,         KC_LT,   KC_GT,   KC_SPC)
+COMB(NUMrEQL,       KC_EQL,         KC_4,    KC_5,    KC_6)    //456 Equal
+
+COMB(NUM_COM,       KC_COMMA,       KC_1,    KC_2)             //12  Comma
+COMB(NUM_DOT,       KC_DOT,         KC_2,    KC_3)             //23  Dot
+
+//on qwerty layer
+COMB(NUM_AT,        KC_AT,          KC_LSFT, KC_Q)
+COMB(NUM_DLR,       KC_DLR,         KC_LSFT, KC_W)
+COMB(NUM_AMPR,      KC_AMPR,        KC_LSFT, KC_E)
+COMB(NUM_PIPE,      KC_PIPE,        KC_LSFT, KC_R)
+COMB(NUM_TILD,      DH_TILD,        KC_LSFT, KC_T)
+COMB(NUM_LCBR,      KC_LCBR,        KC_LSFT, KC_A)
+COMB(NUM_LPRN,      KC_LPRN,        KC_LSFT, KC_S)
+COMB(NUM_RPRN,      KC_RPRN,        KC_LSFT, KC_D)
+COMB(NUM_RCBR,      KC_RCBR,        KC_LSFT, FFF_NUM)
+COMB(NUM_GRV,       DH_GRV,         KC_LSFT, KC_G)
+COMB(NUM_LBRC,      KC_LBRC,        KC_LSFT, KC_Z)
+COMB(NUM_LT,        KC_LT,          KC_LSFT, KC_X)
+COMB(NUM_GT,        KC_GT,          KC_LSFT, KC_C)
+COMB(NUM_RBRC,      KC_RBRC,        KC_LSFT, KC_V)
+COMB(NUM_HASH,      KC_HASH,        KC_LSFT, KC_B)
+
+COMB(NUM_CIRC,      DH_CIRC,        KC_SPC, KC_Y)
+COMB(NUM_7,         KC_7,           KC_SPC, KC_U)
+COMB(NUM_8,         KC_8,           KC_SPC, KC_I)
+COMB(NUM_9,         KC_9,           KC_SPC, KC_O)
+COMB(NUM_PERC,      KC_PERC,        KC_SPC, KC_P)
+COMB(NUM_PLUS,      KC_PLUS,        KC_SPC, KC_H)
+COMB(NUM_4,         KC_4,           KC_SPC, JJJ_NUM)
+COMB(NUM_5,         KC_5,           KC_SPC, KC_K)
+COMB(NUM_6,         KC_6,           KC_SPC, KC_L)
+COMB(NUM_ASTR,      KC_MINS,        KC_SPC, DH_QUOT)
+COMB(NUM_MINS,      KC_ASTR,        KC_SPC, KC_N)
+COMB(NUM_1,         KC_1,           KC_SPC, KC_M)
+COMB(NUM_2,         KC_2,           KC_SPC, KC_COMM)
+COMB(NUM_3,         KC_3,           KC_SPC, KC_DOT)
+COMB(NUM_SLSH,      KC_SLSH,        KC_SPC, KC_EXLM)
+
+COMB(NUM_0,         KC_0,           KC_SPC, BSP_NAV)

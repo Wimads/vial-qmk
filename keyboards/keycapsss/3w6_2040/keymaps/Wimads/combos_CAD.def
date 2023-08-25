@@ -1,0 +1,19 @@
+COMB(CAD_MUN,       MO(_DAC),       KC_LCTL, FFF_NUM)
+
+COMB(CAD_AT,        KC_AT,          SPC_SFT, KC_Q)
+COMB(CAD_DLR,       KC_DLR,         SPC_SFT, KC_W)
+COMB(CAD_AMPR,      KC_AMPR,        SPC_SFT, KC_E)
+COMB(CAD_PIPE,      KC_PIPE,        SPC_SFT, KC_R)
+COMB(CAD_TILD,      DH_TILD,        SPC_SFT, KC_T)
+COMB(CAD_LCBR,      KC_LCBR,        SPC_SFT, KC_A)
+COMB(CAD_LPRN,      KC_LPRN,        SPC_SFT, KC_S)
+COMB(CAD_RPRN,      KC_RPRN,        SPC_SFT, KC_D)
+COMB(CAD_RCBR,      KC_RCBR,        SPC_SFT, FFF_NUM)
+COMB(CAD_GRV,       DH_GRV,         SPC_SFT, KC_G)
+COMB(CAD_LBRC,      KC_LBRC,        SPC_SFT, KC_Z)
+COMB(CAD_LT,        KC_LT,          SPC_SFT, KC_X)
+COMB(CAD_GT,        KC_GT,          SPC_SFT, KC_C)
+COMB(CAD_RBRC,      KC_RBRC,        SPC_SFT, KC_V)
+COMB(CAD_HASH,      KC_HASH,        SPC_SFT, KC_B)
+
+

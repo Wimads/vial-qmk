@@ -1,8 +1,6 @@
 /*TO DO
-* Test if layer-toggle can work with Magic modifier (TG(layer) on _MML; in macro return true and set magic_mod_state = get layer; on release reverse layer magic_mod_state)
-* Figure out logic for _MUN layer
-* Figure out CAD-mode
-* Evaluate whether customshift feature is still required in combination with comboshift feature.
+* further work out CAD mode
+* set rgb indicators for CAD mode
 */
 
 #include QMK_KEYBOARD_H
@@ -11,26 +9,21 @@
 //Layers//
 enum layers {
     _QTY = 0, //QwerTY
+    _CAD = 1, //CAD mode
     _NUM = 2, //NUMbers and symbols
-    //_MUN = 5, //symbols and NUMbers (left right reversed)
+    _DAC = 3, //CAD reversed
     _NAV = 4, //NAVigation
-    _MML = 6, //Magic modifier layer; above _NUM and NAV, because mods need to be accessible from there;
-    _OTH = 8, //OTHer; above _MML, because _OTH is accessed from _MML.
-
+    _OTH = 6, //OTHer; above _MML, because _OTH is accessed from _MML.
 };
 
 //Custom keycodes//
 //Tap-hold keys:                 //tap _ hold
-#define DEL_NUM LT(_NUM, KC_DEL) //DEL _ number layer
+#define DEL_RLT RALT_T(KC_DEL) //DEL _ number layer
 #define BSP_NAV LT(_NAV, KC_BSPC)//BSPC _ navigation layer
-#define MAGIMOD LT(_MML, KC_SPC) //Magic modifier, further defined in macro
-//Homerow Mods: //Redundant because of magic mods; but added for convenience (long tapping term only, to not intefere too much)
-#define HM_S    LALT_T(KC_S) //Homerow Mod LALT _ S
-#define HM_D    LCTL_T(KC_D) //Homerow Mod LCTL _ D
-#define HM_F    LSFT_T(KC_F) //Homerow Mod LSFT _ F
-#define HM_L    RALT_T(KC_L) //Homerow Mod RALT _ L
-#define HM_K    RCTL_T(KC_K) //Homerow Mod RCTL _ K
-#define HM_J    RSFT_T(KC_J) //Homerow Mod RSFT _ J
+#define FFF_NUM LT(_NUM, KC_F)
+#define JJJ_NUM LT(_NUM, KC_J)
+#define SPC_SFT LSFT_T(KC_SPC)
+#define AAA_NAV LT(_NAV, KC_A)
 //Dead-hold keys:                //normal on tap, dead key on hold; requires "English(US)"+"Qwerty US" language+kbd settings in windows
 #define DH_QUOT LT(11, KC_QUOT)  //further defined in macro
 #define DH_DQOT LT(12, KC_QUOT)  //further defined in macro
@@ -42,8 +35,7 @@ enum layers {
 //Macros:
 enum custom_keycodes {
         CLEARKB = SAFE_RANGE,   //clears all keys and/or layers that might be stuck
-        MM_OTH, //magic layer modifier
-        SFTLOCK, CTLLOCK, RALTLCK, //magic mod lock keys
+        CADTOGG,
 };
 
 //Combos//
@@ -54,30 +46,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //Qwerty:
   [_QTY] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-      KC_A,    HM_S,    HM_D,    HM_F,    KC_G,             KC_H,    HM_J,    HM_K,    HM_L,    DH_QUOT,
+      KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
-                        BSP_NAV, MAGIMOD, DEL_NUM,          DEL_NUM, MAGIMOD, BSP_NAV
+                        KC_LALT, KC_LSFT, KC_LCTL,          DEL_RLT, KC_SPC,  BSP_NAV
+  ),
+  //CAD mode:
+  [_CAD] = LAYOUT_split_3x5_3(
+      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
+      AAA_NAV, KC_S,    KC_D,    FFF_NUM, KC_G,             KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
+                        KC_LALT, SPC_SFT, KC_LCTL,          _______, KC_0,    DOTCOMM
   ),
   //Numbers and symbols:
   [_NUM] = LAYOUT_split_3x5_3(
       KC_AT,   KC_DLR,  KC_AMPR, KC_PIPE, DH_TILD,          DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
       KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, DH_GRV,           KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
       KC_LBRC, KC_LT,   KC_GT,   KC_RBRC, KC_HASH,          KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
-                        KC_UNDS, _______, _______,          _______, _______, KC_0
+                        _______, _______, _______,          _______, KC_0,    DOTCOMM
+  ),
+  //DAC (inverted CAD):
+  [_DAC] = LAYOUT_split_3x5_3(
+      KC_PERC, KC_9,    KC_8,    KC_7,    DH_CIRC,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+      KC_MINS, KC_6,    KC_5,    KC_4,    KC_PLUS,          KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
+      KC_SLSH, KC_3,    KC_2,    KC_1,    KC_ASTR,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
+                        KC_0, OSM(KC_LSFT), XXXXXXX,        DEL_RLT, KC_SPC,  BSP_NAV
   ),
   //Navigation:
   [_NAV] = LAYOUT_split_3x5_3(
       KC_VOLU, KC_HOME, KC_UP,   KC_END,  KC_PGUP,          KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU,
       KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,          KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,
-      KC_MUTE, KC_BTN4, KC_F5,   KC_BTN5, XXXXXXX,          XXXXXXX, KC_BTN4, KC_F5,   KC_BTN5, KC_MUTE,
+      KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,          KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,
                         _______, _______, _______,          _______, _______, _______
-  ),
-  //Magic modifier
-  [_MML] = LAYOUT_split_3x5_3(
-      MM_OTH,  RALTLCK, CTLLOCK, SFTLOCK, XXXXXXX,          XXXXXXX, SFTLOCK, CTLLOCK, RALTLCK, MM_OTH,
-      KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_CAPS,          KC_CAPS, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-      KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT, CW_TOGG,          CW_TOGG, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI,
-                        XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   ),
   //OTHER:
   [_OTH] = LAYOUT_split_3x5_3(
@@ -87,6 +86,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   ),
 };//.keymaps
+
+////LED INDICATORS////
+//HSV values LED 1
+int rgb_hue_1 = 152;
+int rgb_sat_1 = 255;
+int rgb_val_1 = 255;
+int rgb_mode_1 = 1;
+//HSV values LED 2
+int rgb_hue_2 = 0;
+int rgb_sat_2 = 255;
+int rgb_val_2 = 255;
+int rgb_mode_2 = 1;
+
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
+
+void matrix_init_user(void) { // Set default lighting state
+    // initiate rgb underglow (default mode as per ASW_on true):
+    rgblight_enable();
+    rgblight_mode(1);
+    rgblight_sethsv(rgb_hue_1, rgb_sat_1, rgb_val_1);
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) { // Respond to layer state
+    switch(biton32(state)) {
+        case _NUM:
+            rgblight_sethsv(rgb_hue_2, rgb_sat_2, rgb_val_2);
+            break;
+        case _CAD:
+            rgblight_sethsv(80, rgb_sat_1, rgb_val_1);
+            rgblight_sethsv_at(rgb_hue_2, rgb_sat_2, rgb_val_2, 1);
+            break;
+        case _DAC:
+            rgblight_sethsv(rgb_hue_2, rgb_sat_2, rgb_val_2);
+            rgblight_sethsv_at(80, rgb_sat_1, rgb_val_1, 1);
+            break;
+        default:
+            rgblight_sethsv(rgb_hue_1, rgb_sat_1, rgb_val_1);
+            break;
+     };
+    return state;
+};
+
+void caps_word_set_user(bool active) {
+    if (active) {
+        rgblight_mode(2);
+    } else {
+        rgblight_mode(rgb_mode_1);
+    }
+};
 
 ////CUSTOM KEY BEHAVIOURS////
 
@@ -117,13 +165,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case DH_GRV:  case DH_TILD:
         case DH_CIRC:
             return TAPPING_TERM; //to be tweaked still
-
-        case MAGIMOD:
-            return TAPPING_TERM; //to be tweaked still
-
-        case HM_S: case HM_D: case HM_F:
-        case HM_L: case HM_K: case HM_J:
-            return 300;
 
         default:
             return TAPPING_TERM;
@@ -164,14 +205,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     int index = get_index_customshift(keycode);// check if keycode is in customshift map
     const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT; //track shift state for customshift behaviours
     static bool dotcomm_state = true; //true = dot; false = comma;
-    static uint16_t magic_mod_state = 0; // 0 = inactive; 1 = pre-selection; 2 = locked; [keycode] = selected
+    static bool cad_mode = false;
     switch(keycode) {
         //general keycodes
         case CLEARKB:
             if (record->event.pressed) {
                 clear_keyboard(); //clears all keys and modifiers that might be stuck
                 layer_clear();    //clears all layers that might be stuck
-                magic_mod_state = 0; //reset Magic modifier
             } return false;
         case DOTCOMM:
             if (record->event.pressed && record->tap.count == 2) {//swap DOTCOMM state on double tap
@@ -194,83 +234,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                     tap_code16(KC_COMM);
                 }
             } return false;
-
-        //Magic modifiers:
-        case MAGIMOD:
-            if (record->event.pressed && record->tap.count && magic_mod_state == 0) { //when tapped && magic modifier NOT active
-                tap_code16(keycode);
-            } else if (record->event.pressed && !record->tap.count && magic_mod_state == 0) { //when held && magic modifier NOT active
-                //activate magic modifier:
-                magic_mod_state = 1; //Magic modifier in pre-selection mode
-                layer_on(_MML);      //next keypress in _MML layer determines final state of Magic modifier
-            } else if (record->event.pressed) { //when tapped or held && magic modifier IS active
-                //cancel magic modifier:
-                if(magic_mod_state == 2){clear_mods();}
-                unregister_code16(magic_mod_state); //release selected modifier, if any
-                layer_off(magic_mod_state);         //release selected layer modifier, if any
-                layer_off(_MML);                    //cancel _MML layer if no mod was selected yet
-                magic_mod_state = 0;                //reset magic modifier status to 0, inactive
-            } else { //on key release
-                if (magic_mod_state != 2) { //cancel magic modifier on key release, unless its locked (state = 2)
-                    unregister_code16(magic_mod_state);
-                    layer_off(magic_mod_state);
-                    layer_off(_MML);
-                    magic_mod_state = 0;
-                } //to cancel locked magic modifier, tap magic modifier once more.
-            } return false;
-        case KC_LSFT:    case KC_RSFT:    case S(KC_RSFT):
-        case KC_LCTL:    case KC_RCTL:    case C(KC_RCTL):
-        case KC_LALT:    case KC_RALT:    case A(KC_RALT):
-        case KC_LGUI:    case KC_RGUI:
-        case S(KC_LCTL): case S(KC_LALT): case S(KC_LGUI):
-        case C(KC_LALT): case C(KC_LGUI): case A(KC_LGUI):
-        case KC_MEH:     case KC_HYPR:
-            if (record->event.pressed && magic_mod_state == 1) { //when pressed && in pre-selection mode
-                register_code16(keycode);
-                layer_off(_MML);
-                magic_mod_state = keycode; //set magic modifier state to [keycode]
-            } return false;
-        case MM_OTH:
-            if (record->event.pressed && magic_mod_state == 1) {
-                layer_on(_OTH);
-                layer_off(_MML);
-                magic_mod_state = _OTH; //set magic modifier state to [layer]
-            } return false;
-        case CW_TOGG: case KC_CAPS:
-            if (record->event.pressed && magic_mod_state == 1) { //when pressed && in pre-selection mode
-                return true;
-                layer_off(_MML);
-                magic_mod_state = 0; //since these are tap-only keycodes, magic mod state is reset immediately.
-            } return false;
-        case SFTLOCK:
-            if (record->event.pressed && magic_mod_state == 1) {
-                register_code16(KC_LSFT);
-                layer_off(_MML);
-                magic_mod_state = 2; //when set to 2, magic mod won't cancel on key release
-            } return false;
-        case CTLLOCK:
-            if (record->event.pressed && magic_mod_state == 1) {
-                register_code16(KC_LCTL);
-                layer_off(_MML);
-                magic_mod_state = 2; //when set to 2, magic mod won't cancel on key release
-            } return false;
-        case RALTLCK:
-            if (record->event.pressed && magic_mod_state == 1) {
-                register_code16(KC_RALT);
-                layer_off(_MML);
-                magic_mod_state = 2; //when set to 2, magic mod won't cancel on key release
+        case CADTOGG:
+            if(record->event.pressed) {
+                cad_mode = !cad_mode;
+                wait_ms(10);
+                layer_move(cad_mode);
             } return false;
 
         //Dead-hold keys:
         case DH_QUOT: //works for both ['] and ["] (except when ["] is accessed via combo, because then shift is not activated)
-            if (record->event.pressed && !record->tap.count) { //if tapped, behave as normal key
+            if (record->event.pressed && record->tap.count) { //if tapped, behave as normal key
                 tap_code16(KC_QUOT); tap_code16(KC_SPC);
             } else if (record->event.pressed) { //if held, behave as dead key
                 tap_code16(KC_QUOT);
                 if (mod_shift) {unregister_mods(mod_shift);} //unregister shift to resolve conflict of holding shifted dead key
             } return false;
         case DH_DQOT: //workaround for combo-["]
-            if (record->event.pressed && !record->tap.count) { //if tapped, behave as normal key
+            if (record->event.pressed && record->tap.count) { //if tapped, behave as normal key
                 tap_code16(S(KC_QUOT)); tap_code16(KC_SPC);
             } else if (record->event.pressed) { //if held, behave as dead key
                 tap_code16(S(KC_QUOT));
@@ -308,5 +288,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true; //if key is not in customshift map or other macro, return normal key behaviour
 };
 
-////LED INDICATORS////
-//TBD
+

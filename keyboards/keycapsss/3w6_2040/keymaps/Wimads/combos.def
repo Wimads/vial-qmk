@@ -1,14 +1,14 @@
 #include "combos_QTY.def" //default layer combos
-#include "combos_SFT.def" //shift-combos
-#include "combos_MML.def" //quantum modifier combos
+#include "combos_CAD.def" //_NUM layer combos
+#include "combos_MOD.def" //quantum modifier combos
 #include "combos_NUM.def" //_NUM layer combos
-#include "combos_NAV.def" //_NAV layer combos
+
+COMB(QTY_CAD,       CADTOGG,        KC_R,    KC_T)
+
 
 //common combos on all layers: //try if reference layer can work if used after #includes
 COMB(QTY_CKB,       CLEARKB,        KC_Q,    KC_T)    //QT Clear keyboard
 COMB(QTYrCKB,       CLEARKB,        KC_Y,    KC_P)    //YP Clear keyboard
-
-COMB(QMM_CKB,       CLEARKB,        MM_OTH,  XXXXXXX)
 
 COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
 COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
