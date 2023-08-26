@@ -1,3 +1,6 @@
+////START marker NUM combos
+COMB(NUM_START,     KC_NO,          KC_NO, KC_NO)
+
 //on num layer:
 COMB(NUM_ENT,       KC_PENT,        KC_LT,   KC_GT,   KC_RBRC) //<>] Numpad enter
 COMB(NUMrENT,       KC_PENT,        KC_1,    KC_2,    KC_3)    //123 Numpad enter
@@ -11,3 +14,5 @@ COMB(NUMrEQL,       KC_EQL,         KC_4,    KC_5,    KC_6)    //456 Equal
 COMB(NUM_COM,       KC_COMMA,       KC_1,    KC_2)             //12  Comma
 COMB(NUM_DOT,       KC_DOT,         KC_2,    KC_3)             //23  Dot
 
+////END marker NUM combos
+COMB(NUM_END,     KC_NO,          KC_NO, KC_NO)

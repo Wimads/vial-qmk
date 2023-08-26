@@ -1,19 +1,21 @@
-COMB(MODcGUI,       KC_LGUI,            DEL_RLT, BSP_NAV)
+////START marker MOD combos
+COMB(MOD_START,     KC_NO,          KC_NO, KC_NO)
 
-COMB(MODcSC,        S(KC_LCTL),         KC_LSFT, KC_LCTL)
-COMB(MODcSA,        S(KC_LALT),         KC_LSFT, KC_LALT)
-COMB(MODcSG,        S(KC_LGUI),         KC_LSFT, BSP_NAV)
-COMB(MODcSRA,       S(KC_RALT),         KC_LSFT, DEL_RLT)
-COMB(MODcSRS,       S(KC_RSFT),         KC_LSFT, SPC_SFT)
+COMB(QTY_GUI,       KC_LGUI,            DEL_RLT, BSP_NAV)
 
-COMB(MODcCA,        C(KC_LALT),         KC_LCTL, KC_LALT)
-COMB(MODcCG,        C(KC_LGUI),         KC_LCTL, BSP_NAV)
-COMB(MODcCRA,       C(KC_RALT),         KC_LCTL, DEL_RLT)
-COMB(MODcCRC,       C(KC_RCTL),         KC_LCTL, DEL_RLT, SPC_SFT)
+COMB(QTY_SC,        S(KC_LCTL),         SPC_SFT, DEL_CTL)
+COMB(QTY_SA,        S(KC_LALT),         SPC_SFT, BSP_ALT)
+COMB(QTY_SG,        S(KC_LGUI),         SPC_SFT, BSP_NAV)
+COMB(QTY_SRA,       S(KC_RALT),         SPC_SFT, DEL_RLT)
 
-COMB(MODcAG,        A(KC_LGUI),         KC_LALT, BSP_NAV)
-COMB(MODcARA,       A(KC_RALT),         KC_LALT, DEL_RLT)
+COMB(QTY_CA,        C(KC_LALT),         DEL_CTL, BSP_ALT)
+COMB(QTY_CG,        C(KC_LGUI),         DEL_CTL, BSP_NAV)
+COMB(QTY_CRA,       C(KC_RALT),         DEL_CTL, DEL_RLT)
 
-COMB(MODcMEH,       KC_MEH,             KC_LSFT, KC_LCTL, KC_LALT)
-COMB(MODcHYPR,      KC_HYPR,            DEL_RLT, SPC_SFT,  BSP_NAV)
+COMB(QTY_AG,        A(KC_LGUI),         BSP_ALT, BSP_NAV)
 
+COMB(QTY_MEH,       KC_MEH,             SPC_SFT, DEL_CTL, BSP_ALT)
+COMB(QTY_HYPR,      KC_HYPR,            DEL_RLT, SPC_SFT, BSP_NAV)
+
+////END marker MOD combos
+COMB(MOD_END,     KC_NO,          KC_NO, KC_NO)

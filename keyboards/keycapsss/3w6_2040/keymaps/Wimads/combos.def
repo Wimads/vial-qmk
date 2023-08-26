@@ -3,7 +3,11 @@
 #include "combos_MOD.def" //quantum modifier combos
 #include "combos_NUM.def" //_NUM layer combos
 
-COMB(QTY_CAD,       CADTOGG,        KC_R,    KC_T)
+////START marker DEF combos; for easy enabling/disabling of specific combo ranges in keymap file
+COMB(DEF_START,     KC_NO,          KC_NO, KC_NO)
+
+COMB(QTY_CAD,       CADTOGG,        AAA_NAV, KC_G)
+COMB(QTYrCAD,       CADTOGG,        KC_H,    DH_QUOT)
 
 
 //common combos on all layers: //try if reference layer can work if used after #includes
@@ -18,3 +22,6 @@ COMB(NAVrCKB,       CLEARKB,        KC_BRIU, KC_PGUP)
 
 COMB(OTH_CKB,       CLEARKB,        XXXXXXX, XXXXXXX)
 COMB(OTHrCKB,       CLEARKB,        KC_PSCR, XXXXXXX)
+
+////END marker DEF combos
+COMB(DEF_END,     KC_NO,          KC_NO, KC_NO)

@@ -21,10 +21,17 @@ enum layers {
 //Tap-hold keys:                 //tap _ hold
 #define DEL_RLT RALT_T(KC_DEL) //DEL _ number layer
 #define BSP_NAV LT(_NAV, KC_BSPC)//BSPC _ navigation layer
+#define DEL_CTL LCTL_T(KC_DEL)
+#define BSP_ALT LALT_T(KC_BSPC)
 #define FFF_NUM LT(_NUM, KC_F)
 #define JJJ_NUM LT(_NUM, KC_J)
 #define SPC_SFT LSFT_T(KC_SPC)
 #define AAA_NAV LT(_NAV, KC_A)
+//Bottom row mods:
+#define XXX_ALT LALT_T(KC_X)
+#define CCC_CTL LCTL_T(KC_C)
+#define VVV_SFT LSFT_T(KC_V)
+#define ZZZ_GUI LGUI_T(KC_Z)
 //Dead-hold keys:                //normal on tap, dead key on hold; requires "English(US)"+"Qwerty US" language+kbd settings in windows
 #define DH_QUOT LT(11, KC_QUOT)  //further defined in macro
 #define DH_DQOT LT(12, KC_QUOT)  //further defined in macro
@@ -37,7 +44,7 @@ enum layers {
 enum custom_keycodes {
         CLEARKB = SAFE_RANGE,   //clears all keys and/or layers that might be stuck
         CADTOGG,
-};
+    };
 
 //Combos//
 #include "g/keymap_combo.h" //included after custom keycodes, so custom keycodes can be used in combos.def
@@ -47,16 +54,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //Qwerty:
   [_QTY] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-      KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
+      AAA_NAV, KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
-                        KC_LALT, KC_LSFT, KC_LCTL,          DEL_RLT, SPC_SFT,  BSP_NAV
+                        BSP_ALT, SPC_SFT, DEL_CTL,          DEL_RLT, SPC_SFT, BSP_NAV
   ),
   //CAD mode:
   [_CAD] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
       AAA_NAV, KC_S,    KC_D,    FFF_NUM, KC_G,             KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
-                        KC_LALT, SPC_SFT, KC_LCTL,          _______, KC_0,    DOTCOMM
+      ZZZ_GUI, XXX_ALT, CCC_CTL, VVV_SFT, KC_B,             KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
+                        BSP_ALT, SPC_SFT, DEL_CTL,          _______, KC_0,    DOTCOMM
   ),
   //Numbers and symbols:
   [_NUM] = LAYOUT_split_3x5_3(
@@ -89,52 +96,90 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };//.keymaps
 
 ////LED INDICATORS////
-//HSV values LED 1
-int rgb_hue_1 = 152;
-int rgb_sat_1 = 255;
-int rgb_val_1 = 255;
-int rgb_mode_1 = 1;
-//HSV values LED 2
-int rgb_hue_2 = 0;
-int rgb_sat_2 = 255;
-int rgb_val_2 = 255;
-int rgb_mode_2 = 1;
+//HSV values both LEDs
+int rgb_hue = 152;
+int rgb_sat = 255;
+int rgb_val = 255;
+int rgb_mode = 1;
+//HSV values right LED
+int rgb_hue_r = 152;
+int rgb_sat_r = 255;
+int rgb_val_r = 255;
+int rgb_mode_r = 1;
 
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
 
 void matrix_init_user(void) { // Set default lighting state
     // initiate rgb underglow (default mode as per ASW_on true):
     rgblight_enable();
-    rgblight_mode(1);
-    rgblight_sethsv(rgb_hue_1, rgb_sat_1, rgb_val_1);
+    rgblight_mode(rgb_mode);                                //set light effect for both LEDs
+    rgblight_set_effect_range(rgb_mode_r, 1);               //override light effect for right LED
+    rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);             //set HSV value for both LEDs
+    rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1); //override HSV value for right LED
+};
+
+void caps_word_set_user(bool active) {
+    if (active) {
+        if(IS_LAYER_ON(_CAD)) {
+            rgb_mode = 2;
+            rgb_mode_r = 1;
+        } else if(IS_LAYER_ON(_DAC)) {
+            rgb_mode = 1;
+            rgb_mode_r = 2;
+        } else {
+            rgb_mode = 2;
+            rgb_mode_r = rgb_mode;
+        }
+        rgblight_mode(rgb_mode);
+        rgblight_set_effect_range(rgb_mode_r, 1);
+        rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
+        rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
+    } else {
+        rgb_mode = 1;
+        rgb_mode_r = rgb_mode;
+        rgblight_mode(rgb_mode);
+        rgblight_set_effect_range(rgb_mode_r, 1);
+        rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
+        rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
+    }
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) { // Respond to layer state
     switch(biton32(state)) {
         case _NUM:
-            rgblight_sethsv(rgb_hue_2, rgb_sat_2, rgb_val_2);
+            rgb_hue = 0;
+            rgb_hue_r = rgb_hue;
+            rgblight_mode(rgb_mode);
+            rgblight_set_effect_range(rgb_mode_r, 1);
+            rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
+            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
         case _CAD:
-            rgblight_sethsv(80, rgb_sat_1, rgb_val_1);
-            rgblight_sethsv_at(rgb_hue_2, rgb_sat_2, rgb_val_2, 1);
+            rgb_hue = 80;
+            rgb_hue_r = 0;
+            rgblight_mode(rgb_mode);
+            rgblight_set_effect_range(rgb_mode_r, 1);
+            rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
+            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
         case _DAC:
-            rgblight_sethsv(rgb_hue_2, rgb_sat_2, rgb_val_2);
-            rgblight_sethsv_at(80, rgb_sat_1, rgb_val_1, 1);
+            rgb_hue = 0;
+            rgb_hue_r = 80;
+            rgblight_mode(rgb_mode);
+            rgblight_set_effect_range(rgb_mode_r, 1);
+            rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
+            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
         default:
-            rgblight_sethsv(rgb_hue_1, rgb_sat_1, rgb_val_1);
+            rgb_hue = 152;
+            rgb_hue_r = rgb_hue;
+            rgblight_mode(rgb_mode);
+            rgblight_set_effect_range(rgb_mode_r, 1);
+            rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
+            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
      };
     return state;
-};
-
-void caps_word_set_user(bool active) {
-    if (active) {
-        rgblight_mode(2);
-    } else {
-        rgblight_mode(rgb_mode_1);
-    }
 };
 
 ////CUSTOM KEY BEHAVIOURS////
@@ -142,7 +187,7 @@ void caps_word_set_user(bool active) {
 //Combos per layer////provision for CAD mode, TBD
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     switch (combo_index) {
-        case CAD_DAC ... CAD_HASH:
+        case CAD_START ... CAD_END:
             if (!IS_LAYER_ON(_CAD)) {
                 return false;
             } return true;
@@ -198,7 +243,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     int index = get_index_customshift(keycode);// check if keycode is in customshift map
     const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT; //track shift state for customshift behaviours
     static bool dotcomm_state = true; //true = dot; false = comma;
-    static bool cad_mode = false;
     switch(keycode) {
         //general keycodes
         case CLEARKB:
@@ -229,9 +273,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             } return false;
         case CADTOGG:
             if(record->event.pressed) {
-                cad_mode = !cad_mode;
-                wait_ms(10);
-                layer_move(cad_mode);
+                layer_invert(_CAD);
             } return false;
 
         //Dead-hold keys:
