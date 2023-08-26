@@ -1,4 +1,4 @@
-COMB(CAD_MUN,       MO(_DAC),       KC_LCTL, FFF_NUM)
+COMB(CAD_DAC,       MO(_DAC),       KC_LCTL, FFF_NUM)
 
 COMB(CAD_AT,        KC_AT,          SPC_SFT, KC_Q)
 COMB(CAD_DLR,       KC_DLR,         SPC_SFT, KC_W)

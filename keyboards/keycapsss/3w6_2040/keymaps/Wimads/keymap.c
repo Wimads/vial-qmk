@@ -1,6 +1,7 @@
 /*TO DO
 * further work out CAD mode
-* set rgb indicators for CAD mode
+* work out capsword in CAD mode
+* fix bug with capsword LED blink in CAD mode (colors don't interact properly)
 */
 
 #include QMK_KEYBOARD_H
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
       KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
-                        KC_LALT, KC_LSFT, KC_LCTL,          DEL_RLT, KC_SPC,  BSP_NAV
+                        KC_LALT, KC_LSFT, KC_LCTL,          DEL_RLT, SPC_SFT,  BSP_NAV
   ),
   //CAD mode:
   [_CAD] = LAYOUT_split_3x5_3(
@@ -69,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_PERC, KC_9,    KC_8,    KC_7,    DH_CIRC,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
       KC_MINS, KC_6,    KC_5,    KC_4,    KC_PLUS,          KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
       KC_SLSH, KC_3,    KC_2,    KC_1,    KC_ASTR,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
-                        KC_0, OSM(KC_LSFT), XXXXXXX,        DEL_RLT, KC_SPC,  BSP_NAV
+                        KC_0, OSM(KC_LSFT), XXXXXXX,        DEL_RLT, SPC_SFT,  BSP_NAV
   ),
   //Navigation:
   [_NAV] = LAYOUT_split_3x5_3(
@@ -139,24 +140,16 @@ void caps_word_set_user(bool active) {
 ////CUSTOM KEY BEHAVIOURS////
 
 //Combos per layer////provision for CAD mode, TBD
-/*static bool CAD_mode = false;
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     switch (combo_index) {
-        case CAD_ ... CAD__:
-            if (!CAD_mode) {
-                return false;
-            }
-        case NUM_ ... NUM__:
-            if (CAD_mode){
-                return false;
-            } return true;
-        case MUN_ ... MUN__:
-            if (!CAD_mode) {
+        case CAD_DAC ... CAD_HASH:
+            if (!IS_LAYER_ON(_CAD)) {
                 return false;
             } return true;
     }
     return true;
-};*/
+};
+
 
 //Tap-hold per key config//
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
