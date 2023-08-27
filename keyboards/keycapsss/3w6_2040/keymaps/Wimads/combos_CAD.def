@@ -2,9 +2,7 @@
 COMB(CAD_START,     KC_NO,          KC_NO, KC_NO)
 
 ////Layer modifiers////
-COMB(CAD_DAC,       MO(_DAC),       DEL_CTL, FFF_NUM)
 COMB(CADrQTY,       CADTOGG,        KC_PLUS, KC_MINS)
-COMB(CAD_OTH,       MO(_OTH),       ZZZ_GUI, KC_B)
 
 ////MODIFIERS///
 COMB(CAD_SC,        S(KC_LCTL),     VVV_SFT, CCC_CTL)
@@ -19,7 +17,12 @@ COMB(CAD_AG,        A(KC_LGUI),     XXX_ALT, ZZZ_GUI)
 COMB(CAD_MEH,       MEH_T(KC_ENT),  VVV_SFT, CCC_CTL, XXX_ALT)
 COMB(CAD_HYPR,      KC_HYPR,        VVV_SFT, CCC_CTL, XXX_ALT, ZZZ_GUI)
 
-COMB(CAD_CAPS,      KC_CAPS,        ZZZ_GUI, CCC_CTL)
+////NAVIGATION////
+COMB(CAD_LEFT,      KC_LEFT,        KC_S,    XXX_ALT)
+COMB(CAD_DOWN,      KC_DOWN,        KC_D,    CCC_CTL)
+COMB(CAD_RGHT,      KC_RGHT,        FFF_NUM, VVV_SFT)
+
+COMB(CAD_DEL,       KC_DEL,         VVV_SFT, KC_B)
 
 ////MOUSE////
 COMB(CAD_BTN3,      KC_BTN3,        XXX_ALT, VVV_SFT)
@@ -32,7 +35,7 @@ COMB(CAD_DLR,       KC_DLR,         SPC_SFT, KC_W)
 COMB(CAD_AMPR,      KC_AMPR,        SPC_SFT, KC_E)
 COMB(CAD_PIPE,      KC_PIPE,        SPC_SFT, KC_R)
 COMB(CAD_TILD,      DH_TILD,        SPC_SFT, KC_T)
-COMB(CAD_LCBR,      KC_LCBR,        SPC_SFT, AAA_NAV)
+COMB(CAD_LCBR,      KC_LCBR,        SPC_SFT, KC_A)
 COMB(CAD_LPRN,      KC_LPRN,        SPC_SFT, KC_S)
 COMB(CAD_RPRN,      KC_RPRN,        SPC_SFT, KC_D)
 COMB(CAD_RCBR,      KC_RCBR,        SPC_SFT, FFF_NUM)
@@ -42,6 +45,28 @@ COMB(CAD_LT,        KC_LT,          SPC_SFT, XXX_ALT)
 COMB(CAD_GT,        KC_GT,          SPC_SFT, CCC_CTL)
 COMB(CAD_RBRC,      KC_RBRC,        SPC_SFT, VVV_SFT)
 COMB(CAD_HASH,      KC_HASH,        SPC_SFT, KC_B)
+COMB(CAD_EQL,       KC_EQL,         SPC_SFT, XXX_ALT, CCC_CTL)
+COMB(CAD_UNDS,      KC_UNDS,        SPC_SFT, XXX_ALT, VVV_SFT)
+
+////NUMBERS////
+COMB(CAD_PERC,      KC_PERC,        KC_LCTL, KC_Q)
+COMB(CAD_7,         KC_7,           KC_LCTL, KC_W)
+COMB(CAD_8,         KC_8,           KC_LCTL, KC_E)
+COMB(CAD_9,         KC_9,           KC_LCTL, KC_R)
+COMB(CAD_CIRC,      DH_CIRC,        KC_LCTL, KC_T)
+COMB(CAD_MINS,      KC_MINS,        KC_LCTL, KC_A)
+COMB(CAD_4,         KC_4,           KC_LCTL, KC_S)
+COMB(CAD_5,         KC_5,           KC_LCTL, KC_D)
+COMB(CAD_6,         KC_6,           KC_LCTL, FFF_NUM)
+COMB(CAD_PLUS,      KC_PLUS,        KC_LCTL, KC_G)
+COMB(CAD_SLSH,      KC_SLSH,        KC_LCTL, ZZZ_GUI)
+COMB(CAD_1,         KC_1,           KC_LCTL, XXX_ALT)
+COMB(CAD_2,         KC_2,           KC_LCTL, CCC_CTL)
+COMB(CAD_3,         KC_3,           KC_LCTL, VVV_SFT)
+COMB(CAD_ASTR,      KC_ASTR,        KC_LCTL, KC_B)
+COMB(CAD_0,         KC_0,           KC_LCTL, XXX_ALT, VVV_SFT)
+COMB(CADnDOT,       KC_DOT,         KC_LCTL, XXX_ALT, CCC_CTL)
+COMB(CADnCOMM,      KC_COMM,        KC_LCTL, CCC_CTL, VVV_SFT)
 
 ////SWAP HANDS///
 /*swap hands top row: ----/  */
@@ -51,7 +76,7 @@ COMB(CAD_I,         KC_I,           KC_E,    KC_R)
 COMB(CAD_U,         KC_U,           KC_R,    KC_T)
 COMB(CAD_Y,         KC_Y,           FFF_NUM, KC_T)
 /*swap hands home and bottom row: /X\\  */
-COMB(CAD_QUOT,      KC_QUOT,        AAA_NAV, KC_W)
+COMB(CAD_QUOT,      DH_QUOT,        KC_A,    KC_W)
 COMB(CAD_L,         KC_L,           KC_S,    KC_E)
 COMB(CAD_K,         KC_K,           KC_D,    KC_W)
 COMB(CAD_J,         KC_J,           FFF_NUM, KC_E)
@@ -62,7 +87,7 @@ COMB(CAD_COMM,      KC_COMM,        CCC_CTL, KC_S)
 COMB(CAD_M,         KC_M,           VVV_SFT, KC_D)
 COMB(CAD_N,         KC_N,           KC_B,    FFF_NUM)
 
-////END marker CAD combos
-COMB(CAD_END,       KC_NO,          KC_NO, KC_NO)
+////FINAL marker CAD combos
+COMB(CAD_FINAL,     KC_NO,          KC_NO, KC_NO)
 
 

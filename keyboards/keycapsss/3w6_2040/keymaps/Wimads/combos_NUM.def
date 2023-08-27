@@ -1,18 +1,24 @@
 ////START marker NUM combos
 COMB(NUM_START,     KC_NO,          KC_NO, KC_NO)
 
-//on num layer:
 COMB(NUM_ENT,       KC_PENT,        KC_LT,   KC_GT,   KC_RBRC) //<>] Numpad enter
 COMB(NUMrENT,       KC_PENT,        KC_1,    KC_2,    KC_3)    //123 Numpad enter
-
-COMB(NUM_UNDS,      KC_UNDS,        KC_LT,   KC_RBRC)          //>]  underscore
-COMB(NUMrUNDS,      KC_UNDS,        KC_1,    KC_3)
-
-COMB(NUM_EQL,       KC_EQL,         KC_LT,   KC_GT)            //<>  Equal (for programming =>)
-COMB(NUMrEQL,       KC_EQL,         KC_4,    KC_5,    KC_6)    //456 Equal
 
 COMB(NUM_COM,       KC_COMMA,       KC_1,    KC_2)             //12  Comma
 COMB(NUM_DOT,       KC_DOT,         KC_2,    KC_3)             //23  Dot
 
-////END marker NUM combos
-COMB(NUM_END,     KC_NO,          KC_NO, KC_NO)
+COMB(NUM_BSP,       KC_BSPC,        KC_RPRN, KC_GRV)
+COMB(NUMrBSP,       KC_BSPC,        KC_PLUS, KC_4)
+COMB(NUM_DEL,       KC_DEL,         KC_RBRC, KC_HASH)
+COMB(NUMrDEL,       KC_DEL,         KC_ASTR, KC_1)
+
+COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
+COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
+
+//modifiers:
+COMB(NUM_SC,        S(KC_LCTL),     SPC_SFT, UND_CTL)
+COMB(NUM_CA,        C(KC_LALT),     UND_CTL, KC_LALT)
+COMB(NUM_MEH,       KC_MEH,         SPC_SFT, UND_CTL, KC_LALT)
+
+////FINAL marker NUM combos
+COMB(NUM_FINAL,     KC_NO,          KC_NO, KC_NO)

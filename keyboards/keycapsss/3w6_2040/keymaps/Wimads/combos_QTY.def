@@ -9,13 +9,32 @@ COMB(QTYrTAB,       KC_TAB,         JJJ_NUM, KC_K,    KC_L) //JKL Tab
 COMB(QTY_ENT,       KC_ENT,         KC_X,    KC_C,    KC_V)   //XCV Enter
 COMB(QTYrENT,       KC_ENT,         KC_M,    KC_COMM, KC_DOT) //M,. Enter
 
-COMB(QTY_CWT,       CW_TOGG,        AAA_NAV, KC_D)
-COMB(QTY_CAPS,      KC_CAPS,        KC_Z,    KC_C)
+COMB(QTY_BSP,       KC_BSPC,        FFF_NUM, KC_G)
+COMB(QTYrBSP,       KC_BSPC,        JJJ_NUM, KC_H)
+COMB(QTY_DEL,       KC_DEL,         KC_V,    KC_B)
+COMB(QTYrDEL,       KC_DEL,         KC_M,    KC_N)
 
-COMB(QTY_OTH,       MO(_OTH),       KC_Z,    KC_B)
-COMB(QTYrOTH,       MO(_OTH),       KC_N,    KC_EXLM)
+COMB(QTY_CWT,       CW_TOGG,        KC_A,    KC_D)
+COMB(QTY_CAPS,      KC_CAPS,        KC_Q,    KC_E)
 
+//RESET
+COMB(QTY_CKB,       CLEARKB,        KC_Q,    KC_T)    //QT Clear keyboard
+COMB(QTYrCKB,       CLEARKB,        KC_Y,    KC_P)    //YP Clear keyboard
 COMB(QTY_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T) //RSET Reset (boot mode)
+
+//Navigation
+COMB(QTY_HOME,      KC_HOME,        KC_W,    KC_S)
+COMB(QTYrHOME,      KC_HOME,        JJJ_NUM, KC_U)
+COMB(QTY_UP,        KC_UP,          KC_D,    KC_E)
+COMB(QTYrUP,        KC_UP,          KC_K,    KC_I)
+COMB(QTY_END,       KC_END,         FFF_NUM, KC_R)
+COMB(QTYrEND,       KC_END,         KC_L,    KC_O)
+COMB(QTY_LEFT,      KC_LEFT,        KC_S,    KC_X)
+COMB(QTYrLEFT,      KC_LEFT,        JJJ_NUM, KC_M)
+COMB(QTY_DOWN,      KC_DOWN,        KC_D,    KC_C)
+COMB(QTYrDOWN,      KC_DOWN,        KC_K,    KC_COMM)
+COMB(QTY_RGHT,      KC_RGHT,        FFF_NUM, KC_V)
+COMB(QTYrRGHT,      KC_RGHT,        KC_L,    KC_DOT)
 
 //Mouse buttons
 COMB(QTY_BTN2,      KC_BTN2,        KC_W,    KC_R)
@@ -25,5 +44,5 @@ COMB(QTY_BTN4,      KC_BTN4,        KC_W,    FFF_NUM)
 COMB(QTY_BTN5,      KC_BTN5,        KC_S,    KC_V)
 COMB(QTY_mF5,       KC_F5,          KC_W,    KC_V)
 
-////END marker QTY combos
-COMB(QTY_END,     KC_NO,          KC_NO, KC_NO)
+////FINAL marker QTY combos
+COMB(QTY_FINAL,     KC_NO,          KC_NO, KC_NO)

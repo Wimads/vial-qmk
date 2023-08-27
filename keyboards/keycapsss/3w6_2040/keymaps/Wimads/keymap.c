@@ -1,4 +1,7 @@
 /*TO DO
+* remove nav layer mods
+* find new places for remaining nav keys
+* rethink thumb clusters and mods
 * further work out CAD mode
 * work out capsword in CAD mode
 * fix bug with capsword LED blink in CAD mode (colors don't interact properly)
@@ -12,21 +15,16 @@ enum layers {
     _QTY = 0, //QwerTY
     _CAD = 1, //CAD mode
     _NUM = 2, //NUMbers and symbols
-    _DAC = 3, //CAD reversed
-    _NAV = 4, //NAVigation
-    _OTH = 6, //OTHer; above _MML, because _OTH is accessed from _MML.
+    _MISC = 3, //MISCelaneous;
 };
 
 //Custom keycodes//
 //Tap-hold keys:                 //tap _ hold
-#define DEL_RLT RALT_T(KC_DEL) //DEL _ number layer
-#define BSP_NAV LT(_NAV, KC_BSPC)//BSPC _ navigation layer
-#define DEL_CTL LCTL_T(KC_DEL)
-#define BSP_ALT LALT_T(KC_BSPC)
+#define EQL_RLT RALT_T(KC_EQL)
+#define UND_CTL LCTL_T(KC_UNDS) //further defined in macro (because shifted keycodes in _T() is not possible)
 #define FFF_NUM LT(_NUM, KC_F)
 #define JJJ_NUM LT(_NUM, KC_J)
 #define SPC_SFT LSFT_T(KC_SPC)
-#define AAA_NAV LT(_NAV, KC_A)
 //Bottom row mods:
 #define XXX_ALT LALT_T(KC_X)
 #define CCC_CTL LCTL_T(KC_C)
@@ -54,58 +52,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //Qwerty:
   [_QTY] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-      AAA_NAV, KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
+      KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
-                        BSP_ALT, SPC_SFT, DEL_CTL,          DEL_RLT, SPC_SFT, BSP_NAV
+                        KC_LALT, SPC_SFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
   ),
   //CAD mode:
   [_CAD] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
-      AAA_NAV, KC_S,    KC_D,    FFF_NUM, KC_G,             KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
+      KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
       ZZZ_GUI, XXX_ALT, CCC_CTL, VVV_SFT, KC_B,             KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
-                        BSP_ALT, SPC_SFT, DEL_CTL,          _______, KC_0,    DOTCOMM
+                        KC_LALT, SPC_SFT, KC_LCTL,          EQL_RLT, KC_0,    DOTCOMM
   ),
   //Numbers and symbols:
   [_NUM] = LAYOUT_split_3x5_3(
       KC_AT,   KC_DLR,  KC_AMPR, KC_PIPE, DH_TILD,          DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
       KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, DH_GRV,           KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
       KC_LBRC, KC_LT,   KC_GT,   KC_RBRC, KC_HASH,          KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
-                        _______, _______, _______,          _______, KC_0,    DOTCOMM
-  ),
-  //DAC (inverted CAD):
-  [_DAC] = LAYOUT_split_3x5_3(
-      KC_PERC, KC_9,    KC_8,    KC_7,    DH_CIRC,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-      KC_MINS, KC_6,    KC_5,    KC_4,    KC_PLUS,          KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
-      KC_SLSH, KC_3,    KC_2,    KC_1,    KC_ASTR,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
-                        KC_0, OSM(KC_LSFT), XXXXXXX,        DEL_RLT, SPC_SFT,  BSP_NAV
-  ),
-  //Navigation:
-  [_NAV] = LAYOUT_split_3x5_3(
-      KC_VOLU, KC_HOME, KC_UP,   KC_END,  KC_PGUP,          KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU,
-      KC_VOLD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,          KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,
-      KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,          KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,
-                        _______, _______, _______,          _______, _______, _______
+                        _______, _______, UND_CTL,          EQL_RLT, KC_0,    DOTCOMM
   ),
   //OTHER:
-  [_OTH] = LAYOUT_split_3x5_3(
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_INS,  XXXXXXX, KC_PSCR,
-      XXXXXXX, KC_SCRL, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX, KC_BRK,           KC_NUM,  KC_MENU, XXXXXXX, XXXXXXX, XXXXXXX,
+  [_MISC] = LAYOUT_split_3x5_3(
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PGUP, KC_BRIU, KC_INS,  KC_VOLU, KC_PSCR,
+      XXXXXXX, KC_SCRL, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PGDN, KC_BRID, XXXXXXX, KC_VOLD, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX, KC_BRK,           KC_NUM,  KC_MENU, XXXXXXX, KC_MUTE, XXXXXXX,
                         XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   ),
 };//.keymaps
 
 ////LED INDICATORS////
 //HSV values both LEDs
+int rgb_mode = 1;
 int rgb_hue = 152;
 int rgb_sat = 255;
 int rgb_val = 255;
-int rgb_mode = 1;
-//HSV values right LED
-int rgb_hue_r = 152;
-int rgb_sat_r = 255;
-int rgb_val_r = 255;
-int rgb_mode_r = 1;
 
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
 
@@ -113,70 +92,42 @@ void matrix_init_user(void) { // Set default lighting state
     // initiate rgb underglow (default mode as per ASW_on true):
     rgblight_enable();
     rgblight_mode(rgb_mode);                                //set light effect for both LEDs
-    rgblight_set_effect_range(rgb_mode_r, 1);               //override light effect for right LED
     rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);             //set HSV value for both LEDs
-    rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1); //override HSV value for right LED
 };
 
 void caps_word_set_user(bool active) {
     if (active) {
-        if(IS_LAYER_ON(_CAD)) {
-            rgb_mode = 2;
-            rgb_mode_r = 1;
-        } else if(IS_LAYER_ON(_DAC)) {
-            rgb_mode = 1;
-            rgb_mode_r = 2;
-        } else {
-            rgb_mode = 2;
-            rgb_mode_r = rgb_mode;
-        }
+        rgb_mode = 2;
         rgblight_mode(rgb_mode);
-        rgblight_set_effect_range(rgb_mode_r, 1);
         rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-        rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
     } else {
         rgb_mode = 1;
-        rgb_mode_r = rgb_mode;
         rgblight_mode(rgb_mode);
-        rgblight_set_effect_range(rgb_mode_r, 1);
         rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-        rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
     }
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) { // Respond to layer state
     switch(biton32(state)) {
         case _NUM:
-            rgb_hue = 0;
-            rgb_hue_r = rgb_hue;
+            rgb_hue = 20;
             rgblight_mode(rgb_mode);
-            rgblight_set_effect_range(rgb_mode_r, 1);
             rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
         case _CAD:
-            rgb_hue = 80;
-            rgb_hue_r = 0;
+            rgb_hue = 60;
             rgblight_mode(rgb_mode);
-            rgblight_set_effect_range(rgb_mode_r, 1);
             rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
-        case _DAC:
-            rgb_hue = 0;
-            rgb_hue_r = 80;
+        case _MISC:
+            rgb_hue = 180;
             rgblight_mode(rgb_mode);
-            rgblight_set_effect_range(rgb_mode_r, 1);
             rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
         default:
             rgb_hue = 152;
-            rgb_hue_r = rgb_hue;
             rgblight_mode(rgb_mode);
-            rgblight_set_effect_range(rgb_mode_r, 1);
             rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-            rgblight_sethsv_at(rgb_hue_r, rgb_sat_r, rgb_val_r, 1);
             break;
      };
     return state;
@@ -187,7 +138,7 @@ layer_state_t layer_state_set_user(layer_state_t state) { // Respond to layer st
 //Combos per layer////provision for CAD mode, TBD
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     switch (combo_index) {
-        case CAD_START ... CAD_END:
+        case CAD_START ... CAD_FINAL:
             if (!IS_LAYER_ON(_CAD)) {
                 return false;
             } return true;
@@ -275,6 +226,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if(record->event.pressed) {
                 layer_invert(_CAD);
             } return false;
+
+        case UND_CTL:
+            if(record->event.pressed && record->tap.count) {
+                tap_code16(S(KC_UNDS));
+                return false;
+            } return true;
 
         //Dead-hold keys:
         case DH_QUOT: //works for both ['] and ["] (except when ["] is accessed via combo, because then shift is not activated)

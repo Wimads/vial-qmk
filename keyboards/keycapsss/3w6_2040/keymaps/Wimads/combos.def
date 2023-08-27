@@ -6,22 +6,11 @@
 ////START marker DEF combos; for easy enabling/disabling of specific combo ranges in keymap file
 COMB(DEF_START,     KC_NO,          KC_NO, KC_NO)
 
-COMB(QTY_CAD,       CADTOGG,        AAA_NAV, KC_G)
+COMB(QTY_CAD,       CADTOGG,        KC_A,    KC_G)
 COMB(QTYrCAD,       CADTOGG,        KC_H,    DH_QUOT)
 
+COMB(MISC_CKB,       CLEARKB,        XXXXXXX, XXXXXXX)
+COMB(MISCrCKB,       CLEARKB,        KC_PSCR, KC_PGUP)
 
-//common combos on all layers: //try if reference layer can work if used after #includes
-COMB(QTY_CKB,       CLEARKB,        KC_Q,    KC_T)    //QT Clear keyboard
-COMB(QTYrCKB,       CLEARKB,        KC_Y,    KC_P)    //YP Clear keyboard
-
-COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
-COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
-
-COMB(NAV_CKB,       CLEARKB,        KC_VOLU, KC_PGUP)
-COMB(NAVrCKB,       CLEARKB,        KC_BRIU, KC_PGUP)
-
-COMB(OTH_CKB,       CLEARKB,        XXXXXXX, XXXXXXX)
-COMB(OTHrCKB,       CLEARKB,        KC_PSCR, XXXXXXX)
-
-////END marker DEF combos
-COMB(DEF_END,     KC_NO,          KC_NO, KC_NO)
+////FINAL marker DEF combos
+COMB(DEF_FINAL,     KC_NO,          KC_NO, KC_NO)
