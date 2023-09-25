@@ -8,9 +8,10 @@
 //Layers:
 enum layers {
 	_QTY = 0, //QwerTY
-	_CAD = 1, //CAD mode
-	_NUM = 2, //NUMbers and symbols
-	_RNUM = 3, //NUMpad Right hand only
+	_QTYe = 1, //Qwerty for monkytype emulation
+	_CAD = 2, //CAD mode
+	_NUM = 3, //NUMbers and symbols
+	_RNUM = 4, //NUMpad Right hand only
 	_MISC = 9, //MISCelaneous;
 };
 
@@ -22,10 +23,9 @@ enum layers {
 #define JJJ_NUM LT(_NUM, KC_J)
 #define SPC_SFT LSFT_T(KC_SPC)
 //Bottom row mods:
-#define XXX_ALT LALT_T(KC_X)
-#define CCC_CTL LCTL_T(KC_C)
-#define VVV_SFT LSFT_T(KC_V)
-#define ZZZ_GUI LGUI_T(KC_Z)
+#define AAA_GUI LGUI_T(KC_A)
+#define SSS_ALT LALT_T(KC_S)
+#define DDD_CTL LCTL_T(KC_D)
 //Dead-hold keys:                //normal on tap, dead key on hold; requires "English(US)"+"Qwerty US" language+kbd settings in windows
 #define DH_QUOT LT(11, KC_QUOT)  //further defined in macro
 #define DH_DQOT LT(12, KC_QUOT)  //further defined in macro
@@ -39,6 +39,7 @@ enum custom_keycodes {
 		CLEARKB = SAFE_RANGE,   //clears all keys and/or layers that might be stuck
 		CADTOGG,
 		RNUMTOG,
+        QTYTOGG,
 };
 //Combos:
 #include "g/keymap_combo.h" //included after custom keycodes, so custom keycodes can be used in combos.def
@@ -53,11 +54,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
 						KC_LALT, SPC_SFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
   ),
+  //Qwerty e:
+  [_QTYe] = LAYOUT_split_3x5_3(
+	  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+	  KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    KC_SCLN,
+	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+						KC_LALT, SPC_SFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
+  ),
   //CAD mode:
   [_CAD] = LAYOUT_split_3x5_3(
 	  _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
+	  AAA_GUI, SSS_ALT, DDD_CTL, _______, _______,          _______, _______, _______, _______, _______,
 	  _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
-	  ZZZ_GUI, XXX_ALT, CCC_CTL, VVV_SFT, _______,          _______, _______, _______, _______, _______,
 						KC_LALT, SPC_SFT, KC_LCTL,          _______, _______, _______
   ),
   //Numbers and symbols:
@@ -89,7 +97,7 @@ int rgb_hue = 170;
 int rgb_sat = 255;
 int rgb_val = 255;
 int rgb_mode = 1;
-int rgb_hue_q = 170; int rgb_hue_c = 145; int rgb_hue_n = 11; int rgb_hue_m = 185;
+int rgb_hue_q = 170; int rgb_hue_c = 145; int rgb_hue_n = 11; int rgb_hue_m = 185; int rgb_hue_qe = 100;
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
 //Set default lighting state:
 void matrix_init_user(void) {
@@ -126,6 +134,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 		if      (IS_LAYER_ON_STATE(state, _MISC)) {rgb_hue = rgb_hue_m;}
 		else if (IS_LAYER_ON_STATE(state, _NUM))  {rgb_hue = rgb_hue_n;}
 		else if (IS_LAYER_ON_STATE(state, _CAD))  {rgb_hue = rgb_hue_c;}
+        else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_qe;}
 		else                                      {rgb_hue = rgb_hue_q;}
 		rgblight_mode(rgb_mode);
 		rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
@@ -134,6 +143,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 		if      (IS_LAYER_ON_STATE(state, _MISC)) {rgb_hue = rgb_hue_m;}
 		else if (IS_LAYER_ON_STATE(state, _NUM))  {rgb_hue = rgb_hue_n;}
 		else if (IS_LAYER_ON_STATE(state, _CAD))  {rgb_hue = rgb_hue_c;}
+        else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_qe;}
 		else                                      {rgb_hue = rgb_hue_q;}
 		rgblight_mode(rgb_mode);
 		rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
@@ -210,6 +220,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 		case RNUMTOG:
 			if(record->event.pressed) {
 				layer_invert(_RNUM);
+			} return false;
+        case QTYTOGG:
+			if(record->event.pressed) {
+				layer_invert(_QTYe);
 			} return false;
 		case UND_SFT:
 			if(record->event.pressed && record->tap.count) {

@@ -19,6 +19,7 @@ COMB(QTY_CAPS,      KC_CAPS,        KC_Q,    KC_E)
 COMB(QTY_CAD,       CADTOGG,        KC_A,    KC_G)
 COMB(QTYrCAD,       CADTOGG,        KC_H,    DH_QUOT)
 COMB(NUM_CAD,       CADTOGG,        KC_PLUS, KC_MINS)
+COMB(QTY_QTYe,      QTYTOGG,        KC_Z,    KC_B)
 
 COMB(QTY_RNUM,      RNUMTOG,        SPC_SFT, JJJ_NUM)
 COMB(NUM_RNUM,      RNUMTOG,        KC_0,    KC_4)
