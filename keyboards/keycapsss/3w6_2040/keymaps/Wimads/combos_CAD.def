@@ -1,6 +1,9 @@
 ////START marker CAD combos
 COMB(CAD_START,     KC_NO,          KC_NO, KC_NO)
 
+////Basic combos////
+COMB(CAD_CWTG,      CW_TOGG,        KC_Z, KC_C)
+
 ////Layer modifiers////
 COMB(CADrQTY,       CADTOGG,        KC_PLUS, KC_MINS)
 COMB(CAD_QTY,       CADTOGG,        AAA_GUI, KC_G)
@@ -15,13 +18,14 @@ COMB(CAD_CG,        C(KC_LGUI),     DDD_CTL, AAA_GUI)
 
 COMB(CAD_AG,        A(KC_LGUI),     SSS_ALT, AAA_GUI)
 
-COMB(CAD_MEH,       MEH_T(KC_ENT),  FFF_NUM, DDD_CTL, SSS_ALT)
+COMB(CAD_MEH,       MEH_T(KC_TAB),  FFF_NUM, DDD_CTL, SSS_ALT)
 COMB(CAD_HYPR,      KC_HYPR,        FFF_NUM, DDD_CTL, SSS_ALT, AAA_GUI)
 
 ////NAVIGATION////
-COMB(CAD_LEFT,      KC_LEFT,        KC_X,    SSS_ALT)
-COMB(CAD_DOWN,      KC_DOWN,        KC_C,    DDD_CTL)
-COMB(CAD_RGHT,      KC_RGHT,        FFF_NUM, KC_V)
+COMB(CAD_HOME,      KC_HOME,        KC_W,    SSS_ALT)
+COMB(CAD_UP,        KC_UP,          DDD_CTL, KC_E)
+COMB(CAD_LEFT,      KC_LEFT,        SSS_ALT, KC_X)
+COMB(CAD_DOWN,      KC_DOWN,        DDD_CTL, KC_C)
 
 ////MOUSE////
 COMB(CAD_BTN1,      KC_BTN1,        SSS_ALT, FFF_NUM)

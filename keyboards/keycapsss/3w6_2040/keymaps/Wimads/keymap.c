@@ -215,7 +215,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 			} return false;
 		case CADTOGG:
 			if(record->event.pressed) {
-				layer_invert(_CAD);
+                if      (!IS_LAYER_ON(_CAD)) {layer_on(_RNUM);} //turn _RNUM on/off together with _CAD
+                else if (IS_LAYER_ON(_CAD))  {layer_off(_RNUM);}
+                layer_invert(_CAD);
 			} return false;
 		case RNUMTOG:
 			if(record->event.pressed) {
