@@ -228,7 +228,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 			if(record->event.pressed) {
 				layer_invert(_QTYe);
 			} return false;
-		case FFF_NUM:
+		/*case FFF_NUM:
 		case JJJ_NUM:
 			if(record->event.pressed) { //tap NUMLOCK twice to trigger DRAGSCROLL in charybdis
 				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
@@ -237,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 				wait_ms(100);
 				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
 			}
-			return true;
+			return true;*/
 		case UND_SFT:
 			if(record->event.pressed && record->tap.count) {
 				tap_code16(S(KC_UNDS));
