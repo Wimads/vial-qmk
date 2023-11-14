@@ -1,4 +1,5 @@
 /*TO DO
+* implement dragscroll trigger via numlock (if want to add external qmk trackball)
 * get into lighting layers to fix capsword led animation
 */
 
@@ -7,10 +8,10 @@
 ////DEFINITIONS////
 //Layers:
 enum layers {
-	_QTY = 0, //QwerTY
+	_QTY  = 0, //QwerTY
 	_QTYe = 1, //Qwerty for monkytype emulation
-	_CAD = 2, //CAD mode
-	_NUM = 3, //NUMbers and symbols
+	_CAD  = 2, //CAD mode
+	_NUM  = 3, //NUMbers and symbols
 	_RNUM = 4, //NUMpad Right hand only
 	_MISC = 9, //MISCelaneous;
 };
@@ -54,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
 						KC_LALT, SPC_SFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
   ),
-  //Qwerty e:
+  //Qwerty e: (unmodified qwerty layout for emulation in for example monkeytype)
   [_QTYe] = LAYOUT_split_3x5_3(
 	  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
 	  KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    KC_SCLN,
@@ -227,6 +228,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 			if(record->event.pressed) {
 				layer_invert(_QTYe);
 			} return false;
+		case FFF_NUM:
+		case JJJ_NUM:
+			if(record->event.pressed) { //tap NUMLOCK twice to trigger DRAGSCROLL in charybdis
+				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
+			} else {  //tap NUMLOCK 4 times to release DRAGSCROLL in charybdis
+				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
+				wait_ms(100);
+				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
+			}
+			return true;
 		case UND_SFT:
 			if(record->event.pressed && record->tap.count) {
 				tap_code16(S(KC_UNDS));
@@ -254,7 +265,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 				}
 			} return false;
 
-		//Dead-hold keys:
+		//Dead-hold keys (acts like dead key when held):
 		case DH_QUOT: //works for both ['] and ["] (except when ["] is accessed via combo, because then shift is not activated)
 			if (record->event.pressed && record->tap.count) { //if tapped, behave as normal key
 				tap_code16(KC_QUOT); tap_code16(KC_SPC);
@@ -262,7 +273,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 				tap_code16(KC_QUOT);
 				if (mod_shift) {unregister_mods(mod_shift);} //unregister shift to resolve conflict of holding shifted dead key
 			} return false;
-		case DH_DQOT: //workaround for combo-["]
+		case DH_DQOT: //workaround for combo-["] on CAD layer
 			if (record->event.pressed && record->tap.count) { //if tapped, behave as normal key
 				tap_code16(S(KC_QUOT)); tap_code16(KC_SPC);
 			} else if (record->event.pressed) { //if held, behave as dead key
