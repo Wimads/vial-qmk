@@ -22,8 +22,9 @@ COMB(QTYrCAD,       CADTOGG,        KC_H,    DH_QUOT)
 COMB(NUM_CAD,       CADTOGG,        KC_PLUS, KC_MINS)
 COMB(QTY_QTYe,      QTYTOGG,        KC_Z,    KC_B)
 
-COMB(QTY_RNUM,      RNUMTOG,        SPC_SFT, JJJ_NUM)
-COMB(NUM_RNUM,      RNUMTOG,        KC_0,    KC_4)
+COMB(QTY_RNUM,      RNUMTOG,        KC_A,    KC_G,    KC_LCTL)
+COMB(QTYrRNUM,      RNUMTOG,        DH_QUOT, KC_H,    KC_RALT)
+COMB(NUMrRNUM,      RNUMTOG,        KC_PLUS, KC_MINS, EQL_RLT)
 
 //Navigation
 COMB(QTY_HOME,      KC_HOME,        KC_W,    KC_S)
