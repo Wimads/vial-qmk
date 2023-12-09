@@ -127,8 +127,8 @@ void caps_word_set_user(bool active) {
 		rgblight_mode(rgb_mode);
 		rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
 		if (IS_LAYER_ON(_RNUM)) {
-            rgblight_sethsv(rgb_hue_n, rgb_sat, rgb_val);
-			rgblight_sethsv_at(rgb_hue, rgb_sat, rgb_val, 0); //override left hand LED
+            rgblight_sethsv_at(rgb_hue_n, rgb_sat, rgb_val, 1);
+			rgblight_sethsv_at(rgb_hue, rgb_sat, rgb_val, 0);
 		}
 	}
 };
@@ -144,8 +144,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_e;}
 		else                                      {rgb_hue = rgb_hue_q;}
 		rgblight_mode(rgb_mode);
-		rgblight_sethsv(rgb_hue_n, rgb_sat, rgb_val);
-		rgblight_sethsv_at(rgb_hue, rgb_sat, rgb_val, 0);//override left hand LED
+		rgblight_sethsv_at(rgb_hue_n, rgb_sat, rgb_val, 1);
+		rgblight_sethsv_at(rgb_hue, rgb_sat, rgb_val, 0);
 	} else {
 		if      (IS_LAYER_ON_STATE(state, _MISC)) {rgb_hue = rgb_hue_m;}
 		else if (IS_LAYER_ON_STATE(state, _NUM))  {rgb_hue = rgb_hue_n;}
