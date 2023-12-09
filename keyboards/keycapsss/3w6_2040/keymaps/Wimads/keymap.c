@@ -98,7 +98,12 @@ int rgb_hue = 170;
 int rgb_sat = 255;
 int rgb_val = 255;
 int rgb_mode = 1;
-int rgb_hue_q = 170; int rgb_hue_c = 145; int rgb_hue_n = 11; int rgb_hue_m = 185; int rgb_hue_qe = 100;
+int rgb_hue_q = 170; //qwerty
+int rgb_hue_c = 145;  //CAD
+int rgb_hue_n = 11;  //NUM
+int rgb_hue_m = 185; //MISC
+int rgb_hue_e = 100; //emulation
+//index of left LED = 0, right LED = 1
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
 //Set default lighting state:
 void matrix_init_user(void) {
@@ -122,7 +127,8 @@ void caps_word_set_user(bool active) {
 		rgblight_mode(rgb_mode);
 		rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
 		if (IS_LAYER_ON(_RNUM)) {
-			rgblight_sethsv_at(rgb_hue_n, rgb_sat, rgb_val, 1); //override right hand LED
+            rgblight_sethsv(rgb_hue_n, rgb_sat, rgb_val);
+			rgblight_sethsv_at(rgb_hue, rgb_sat, rgb_val, 0); //override left hand LED
 		}
 	}
 };
@@ -135,16 +141,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 		if      (IS_LAYER_ON_STATE(state, _MISC)) {rgb_hue = rgb_hue_m;}
 		else if (IS_LAYER_ON_STATE(state, _NUM))  {rgb_hue = rgb_hue_n;}
 		else if (IS_LAYER_ON_STATE(state, _CAD))  {rgb_hue = rgb_hue_c;}
-        else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_qe;}
+        else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_e;}
 		else                                      {rgb_hue = rgb_hue_q;}
 		rgblight_mode(rgb_mode);
-		rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);
-		rgblight_sethsv_at(rgb_hue_n, rgb_sat, rgb_val, 1);//override right hand LED
+		rgblight_sethsv(rgb_hue_n, rgb_sat, rgb_val);
+		rgblight_sethsv_at(rgb_hue, rgb_sat, rgb_val, 0);//override left hand LED
 	} else {
 		if      (IS_LAYER_ON_STATE(state, _MISC)) {rgb_hue = rgb_hue_m;}
 		else if (IS_LAYER_ON_STATE(state, _NUM))  {rgb_hue = rgb_hue_n;}
 		else if (IS_LAYER_ON_STATE(state, _CAD))  {rgb_hue = rgb_hue_c;}
-        else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_qe;}
+        else if (IS_LAYER_ON_STATE(state, _QTYe)) {rgb_hue = rgb_hue_e;}
 		else                                      {rgb_hue = rgb_hue_q;}
 		rgblight_mode(rgb_mode);
 		rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);

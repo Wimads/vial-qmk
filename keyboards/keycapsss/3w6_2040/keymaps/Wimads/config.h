@@ -14,5 +14,6 @@
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 #define CAPS_WORD_IDLE_TIMEOUT 0
 
-#undef EE_HANDS
-#define MASTER_LEFT
+////HARDWARE CONFIG////
+#undef EE_HANDS //automatic detection of master/slave doesn't work, so undefine
+#define MASTER_LEFT //set master manually
