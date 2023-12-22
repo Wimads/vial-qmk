@@ -9,8 +9,8 @@ COMB(CADrQTY,       CADTOGG,        KC_PLUS, KC_MINS)
 COMB(CAD_QTY,       CADTOGG,        KC_A, KC_G)
 
 ////MODIFIERS///
-COMB(CAD_SC,        S(KC_LCTL),     SPC_SFT, KC_LCTL)
-COMB(CAD_SA,        S(KC_LALT),     SPC_SFT, KC_LALT)
+COMB(CAD_SC,        CMOD_SC,        SPC_SFT, KC_LCTL)
+COMB(CAD_SA,        CMOD_SA,        SPC_SFT, KC_LALT)
 
 COMB(CAD_MEH,       KC_MEH,         SPC_SFT, KC_LCTL, KC_LALT)
 

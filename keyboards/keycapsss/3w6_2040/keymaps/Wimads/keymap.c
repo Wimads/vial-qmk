@@ -41,6 +41,9 @@ enum custom_keycodes {
 		CADTOGG,
 		RNUMTOG,
         QTYTOGG,
+        CMOD_SC, CMOD_SA, CMOD_SG, CMOD_SRA,
+        CMOD_CA, CMOD_CG, CMOD_CRA,
+        CMOD_AG,
 };
 //Combos:
 #include "g/keymap_combo.h" //included after custom keycodes, so custom keycodes can be used in combos.def
@@ -207,19 +210,21 @@ int get_index_customshift(uint16_t keycode_record) { //find corresponding item i
 //Macros..
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 	int index = get_index_customshift(keycode);// check if keycode is in customshift map
+    int CMOD_delay = 10;//delay for mod combos (for vectorworks)
 	const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT; //track shift state for customshift behaviours
 	static bool dotcomm_state = true; //true = dot; false = comma;
 	switch(keycode) {
-		//custom keycodes:
 		case CLEARKB:
 			if (record->event.pressed) {
 				clear_keyboard(); //clears all keys and modifiers that might be stuck
 				layer_clear();    //clears all layers that might be stuck
 			} return false;
+
+        //layer toggles:
 		case CADTOGG:
 			if(record->event.pressed) {
-                if      (!IS_LAYER_ON(_CAD)) {layer_on(_RNUM);} //turn _RNUM on/off together with _CAD
-                else if (IS_LAYER_ON(_CAD))  {layer_off(_RNUM);}
+                //toggle _CAD on/off, and turn _RNUM off everytime
+                layer_off(_RNUM);
                 layer_invert(_CAD);
 			} return false;
 		case RNUMTOG:
@@ -230,16 +235,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 			if(record->event.pressed) {
 				layer_invert(_QTYe);
 			} return false;
-		/*case FFF_NUM:
-		case JJJ_NUM:
-			if(record->event.pressed) { //tap NUMLOCK twice to trigger DRAGSCROLL in charybdis
-				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
-			} else {  //tap NUMLOCK 4 times to release DRAGSCROLL in charybdis
-				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
-				wait_ms(100);
-				tap_code16(KC_NUM); wait_ms(100); tap_code16(KC_NUM);
-			}
-			return true;*/
+
+        //Combo mods:
+        case CMOD_SC:
+            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
+            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LSFT);}
+            return false;
+        case CMOD_SA:
+            if(record->event.pressed) {register_code16(KC_LALT); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
+            else                    {unregister_code16(KC_LALT);                    unregister_code16(KC_LSFT);}
+            return false;
+        case CMOD_SG:
+            if(record->event.pressed) {register_code16(KC_LGUI); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
+            else                    {unregister_code16(KC_LGUI);                    unregister_code16(KC_LSFT);}
+            return false;
+        case CMOD_SRA:
+            if(record->event.pressed) {register_code16(KC_RALT); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
+            else                    {unregister_code16(KC_RALT);                    unregister_code16(KC_LSFT);}
+            return false;
+        case CMOD_CA:
+            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LALT);}
+            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LALT);}
+            return false;
+        case CMOD_CG:
+            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LGUI);}
+            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LGUI);}
+            return false;
+        case CMOD_CRA:
+            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_RALT);}
+            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_RALT);}
+            return false;
+        case CMOD_AG:
+            if(record->event.pressed) {register_code16(KC_LALT); wait_ms(CMOD_delay); register_code16(KC_LGUI);}
+            else                    {unregister_code16(KC_LALT);                    unregister_code16(KC_LGUI);}
+            return false;
+
+        //special keycodes:
 		case UND_SFT:
 			if(record->event.pressed && record->tap.count) {
 				tap_code16(S(KC_UNDS));

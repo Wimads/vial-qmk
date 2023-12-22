@@ -64,8 +64,8 @@ COMB(NUMrF11,       KC_F11,         DOTCOMM, KC_1,   KC_2)
 COMB(NUMrF12,       KC_F12,         DOTCOMM, KC_2,   KC_3)
 
 //modifiers:
-COMB(NUM_SC,        S(KC_LCTL),     UND_SFT, KC_LCTL)
-COMB(NUM_SA,        S(KC_LALT),     UND_SFT, KC_LALT)
+COMB(NUM_SC,        CMOD_SC,        UND_SFT, KC_LCTL)
+COMB(NUM_SA,        CMOD_SA,        UND_SFT, KC_LALT)
 COMB(NUM_MEH,       KC_MEH,         UND_SFT, KC_LCTL, KC_LALT)
 
 ////FINAL marker NUM combos
