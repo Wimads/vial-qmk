@@ -1,4 +1,5 @@
 /*TO DO
+* Resolve DeadHold and CustomShift macros for Onshot modifiers
 * implement dragscroll trigger via numlock (if want to add external qmk trackball)
 * get into lighting layers to fix capsword led animation
 */
@@ -27,6 +28,11 @@ enum layers {
 #define AAA_GUI LGUI_T(KC_A)
 #define SSS_ALT LALT_T(KC_S)
 #define DDD_CTL LCTL_T(KC_D)
+//Oneshot Mods:
+#define OSMLSFT OSM(MOD_LSFT)
+#define OSMLCTL OSM(MOD_LCTL)
+#define OSMLALT OSM(MOD_LALT)
+#define OSMRALT OSM(MOD_RALT)
 //Dead-hold keys:                //normal on tap, dead key on hold; requires "English(US)"+"Qwerty US" language+kbd settings in windows
 #define DH_QUOT LT(11, KC_QUOT)  //further defined in macro
 #define DH_DQOT LT(12, KC_QUOT)  //further defined in macro
@@ -61,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //Qwerty e: (unmodified qwerty layout for emulation in for example monkeytype)
   [_QTYe] = LAYOUT_split_3x5_3(
 	  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-	  KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    KC_SCLN,
-	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-						KC_LALT, KC_LSFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
+	  KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
+	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
+						OSMLALT, OSMLSFT, OSMLCTL,          OSMRALT, SPC_SFT, MO(_MISC)
   ),
   //CAD mode: (a mostly transparent layer, but will activate extra combos)
   [_CAD] = LAYOUT_split_3x5_3(
